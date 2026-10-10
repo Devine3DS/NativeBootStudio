@@ -1,4 +1,4 @@
-"""Native Boot Studio 4.2.1: English/German editor with the modern native animation."""
+"""Native Boot Studio: English/German editor with the modern native animation."""
 
 import argparse
 import copy
@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import queue
+import re
 import tempfile
 import threading
 import time
@@ -20,7 +21,7 @@ import native_preview
 import user_presets
 from i18n import locale, t, load_preferences, save_preferences
 
-VERSION = "4.2.1"
+VERSION = "4.2.2"
 COLORS = {
     "bg": "#101216",
     "panel": "#191c22",
@@ -129,6 +130,12 @@ class Studio:
             )
         )
         self.xenia = locale.RawStringVar(value=str(self.gpu.executable))
+        self.source_display = locale.RawStringVar()
+        self.tool_display = locale.RawStringVar()
+        self.xenia_display = locale.RawStringVar()
+        self.update_file_labels()
+        for variable in (self.source, self.tool, self.xenia):
+            variable.trace_add("write", self.update_file_labels)
         self.language = locale.RawStringVar(
             value="English" if locale.language == "en" else "Deutsch"
         )
@@ -171,7 +178,7 @@ class Studio:
 
     def setup_style(self):
         root = self.root
-        root.title("Native Boot Studio 4.2.1")
+        root.title(f"Native Boot Studio {VERSION}")
         root.geometry("1440x940")
         root.minsize(1080, 740)
         root.configure(bg=COLORS["bg"])
@@ -412,7 +419,7 @@ class Studio:
         ).grid(row=0, column=0, sticky="w")
         self.label(
             header,
-            "Xbox 360 · 4.2.1",
+            f"Xbox 360 · {VERSION}",
             style="Root.TLabel",
             foreground=COLORS["muted"],
             font=("Segoe UI", 9),
@@ -726,14 +733,14 @@ class Studio:
             wraplength=380,
             font=("Segoe UI", 9),
         ).pack(anchor="w", pady=(0, 8))
-        self.ttk.Entry(parent, textvariable=self.source).pack(fill="x")
+        self.ttk.Entry(parent, textvariable=self.source_display, state="readonly").pack(fill="x")
         self.ttk.Button(
             parent,
             text="Original bootanim.xex auswählen …",
             command=lambda: self.browse(self.source, [("Xbox-XEX", "*.xex")]),
         ).pack(anchor="w", pady=7)
         self.section(parent, "XexTool 6.3")
-        self.ttk.Entry(parent, textvariable=self.tool).pack(fill="x")
+        self.ttk.Entry(parent, textvariable=self.tool_display, state="readonly").pack(fill="x")
         self.ttk.Button(
             parent,
             text="XexTool auswählen …",
@@ -747,7 +754,7 @@ class Studio:
             font=("Segoe UI", 9),
         ).pack(anchor="w", pady=8)
         self.section(parent, "Xenia · optionale Shader-Vorschau")
-        self.ttk.Entry(parent, textvariable=self.xenia, state="readonly").pack(fill="x")
+        self.ttk.Entry(parent, textvariable=self.xenia_display, state="readonly").pack(fill="x")
         actions = self.ttk.Frame(parent)
         actions.pack(fill="x", pady=8)
         self.ttk.Button(actions, text="Xenia auswählen …", command=self.choose_xenia).pack(
@@ -1003,6 +1010,7 @@ class Studio:
 
     def change_language(self, *_):
         locale.set("en" if self.language.get() == "English" else "de", self.root)
+        self.update_file_labels()
         self.refresh()
         self.target_changed()
         self.refresh_library()
@@ -1193,7 +1201,7 @@ class Studio:
                     self.apply_user_preset(identity)
                 except (OSError, ValueError) as exc:
                     messagebox.showerror(
-                        "Preset konnte nicht geladen werden", str(exc), parent=window
+                        "Preset konnte nicht geladen werden", self.display_error(exc), parent=window
                     )
 
         for title, command in [
@@ -1226,7 +1234,9 @@ class Studio:
         try:
             self.refresh_library(self.preset_store.import_file(path))
         except (OSError, ValueError) as exc:
-            messagebox.showerror("Import fehlgeschlagen", str(exc), parent=self.library)
+            messagebox.showerror(
+                "Import fehlgeschlagen", self.display_error(exc), parent=self.library
+            )
 
     def export_user_preset(self):
         from tkinter import filedialog, messagebox
@@ -1246,7 +1256,9 @@ class Studio:
         try:
             self.preset_store.export_file(identity, path)
         except (OSError, ValueError) as exc:
-            messagebox.showerror("Export fehlgeschlagen", str(exc), parent=self.library)
+            messagebox.showerror(
+                "Export fehlgeschlagen", self.display_error(exc), parent=self.library
+            )
 
     def delete_user_preset(self):
         from tkinter import messagebox
@@ -1264,7 +1276,9 @@ class Studio:
             self.preset_store.delete(identity)
             self.refresh_library()
         except OSError as exc:
-            messagebox.showerror("Löschen fehlgeschlagen", str(exc), parent=self.library)
+            messagebox.showerror(
+                "Löschen fehlgeschlagen", self.display_error(exc), parent=self.library
+            )
 
     def replace_user_preset(self):
         from tkinter import messagebox
@@ -1286,7 +1300,9 @@ class Studio:
             self.refresh_library(identity)
             self.refresh()
         except (OSError, ValueError) as exc:
-            messagebox.showerror("Speichern fehlgeschlagen", str(exc), parent=self.library)
+            messagebox.showerror(
+                "Speichern fehlgeschlagen", self.display_error(exc), parent=self.library
+            )
 
     def dirty(self):
         try:
@@ -1361,7 +1377,7 @@ class Studio:
                     highlightbackground=COLORS["accent"] if name == matching else COLORS["line"]
                 )
         title = self.project_path.stem if self.project_path else "Neuer Entwurf"
-        self.root.title(t(f'{title}{" *" if self.dirty() else ""} · Native Boot Studio 4.2.1'))
+        self.root.title(t(f'{title}{" *" if self.dirty() else ""} · Native Boot Studio {VERSION}'))
         self.updating = was_updating
         self.invalidate()
 
@@ -1529,6 +1545,8 @@ class Studio:
         self.seek()
 
     def target_changed(self, *_):
+        if self.closed:
+            return
         target = TARGET_LABELS.get(self.target.get(), "hdd")
         self.target_note.set(
             "HDD: Speichere bootanim.xex auf der Xbox-Festplatte. Die Konsole muss für das Laden von dort eingerichtet sein."
@@ -1537,6 +1555,30 @@ class Studio:
         )
         if hasattr(self, "theme_button"):
             self.refresh()
+
+    def update_file_labels(self, *_):
+        for path_variable, display in (
+            (self.source, self.source_display),
+            (self.tool, self.tool_display),
+            (self.xenia, self.xenia_display),
+        ):
+            path = Path(path_variable.get())
+            try:
+                exists = path.is_file()
+            except OSError:
+                exists = False
+            display.set(path.name if exists else t("Keine Datei ausgewählt"))
+
+    def display_error(self, error):
+        text = str(error)
+        for variable in (self.source, self.tool, self.xenia):
+            value = variable.get()
+            if value:
+                name = Path(value).name
+                for spelling in (value, value.replace("\\", "/"), value.replace("/", "\\")):
+                    text = text.replace(spelling, name)
+        # Exceptions may mention temporary files under a Windows user profile.
+        return re.sub(r"(?i)[a-z]:[\\/]users[\\/][^\\/]+[\\/]", "~/", text)
 
     def files_changed(self, *_):
         if self.updating:
@@ -1656,7 +1698,9 @@ class Studio:
         try:
             checked = read_project(path)
         except Exception as exc:
-            messagebox.showerror("Projekt konnte nicht geöffnet werden", str(exc), parent=self.root)
+            messagebox.showerror(
+                "Projekt konnte nicht geöffnet werden", self.display_error(exc), parent=self.root
+            )
             return
         if not self.maybe_discard():
             return
@@ -1681,7 +1725,7 @@ class Studio:
             checked = self.document()
         except Exception as exc:
             messagebox.showerror(
-                "Projekt konnte nicht gespeichert werden", str(exc), parent=self.root
+                "Projekt konnte nicht gespeichert werden", self.display_error(exc), parent=self.root
             )
             return False
         path = self.project_path
@@ -1699,7 +1743,7 @@ class Studio:
             save_project(path, checked)
         except Exception as exc:
             messagebox.showerror(
-                "Projekt konnte nicht gespeichert werden", str(exc), parent=self.root
+                "Projekt konnte nicht gespeichert werden", self.display_error(exc), parent=self.root
             )
             return False
         self.project_path = path
@@ -1909,10 +1953,7 @@ class Studio:
             self.timeline.get(),
         )
         if state == "failed":
-            self.status.set(
-                "Shader-Vorschau konnte nicht gestartet werden. Details: "
-                + str(self.gpu.folder / "preview.log")
-            )
+            self.status.set("Shader-Vorschau konnte nicht gestartet werden. Details: preview.log")
             self.toggle_gpu()
 
     def submit_render(self):
@@ -2003,7 +2044,9 @@ class Studio:
                 else:
                     self.scene = None
                     self.verified_identity = None
-                    self.source_status.set("Eingabeprüfung fehlgeschlagen.\n" + value[1])
+                    self.source_status.set(
+                        "Eingabeprüfung fehlgeschlagen.\n" + self.display_error(value[1])
+                    )
                     self.status.set("Eingabeprüfung fehlgeschlagen. Details im Reiter „Dateien“.")
                 self.update_export_state()
                 self.invalidate()
@@ -2023,18 +2066,20 @@ class Studio:
                     )
                 else:
                     self.status.set("Export fehlgeschlagen.")
-                    messagebox.showerror("Export fehlgeschlagen", value, parent=self.root)
+                    messagebox.showerror(
+                        "Export fehlgeschlagen", self.display_error(value), parent=self.root
+                    )
             elif kind == "gpu-ready":
                 if self.gpu_mode and value[0] == self.gpu_token:
                     self.gpu_preparing = False
                     try:
                         self.gpu.start(value[1])
                     except Exception as exc:
-                        self.status.set("Vorschaufehler: " + str(exc))
+                        self.status.set("Vorschaufehler: " + self.display_error(exc))
                         self.toggle_gpu()
             elif kind == "gpu-error":
                 if self.gpu_mode and value[0] == self.gpu_token:
-                    self.status.set("Vorschaufehler: " + value[1])
+                    self.status.set("Vorschaufehler: " + self.display_error(value[1]))
                     self.toggle_gpu()
             elif kind == "render":
                 revision, serial, bitmap = value
@@ -2047,7 +2092,7 @@ class Studio:
                     self.preview.winfo_width() / 2, self.preview.winfo_height() / 2, image=photo
                 )
             elif kind == "render-error" and value[0] == self.view_revision:
-                self.status.set("Vorschaufehler: " + value[1])
+                self.status.set("Vorschaufehler: " + self.display_error(value[1]))
             elif kind == "gallery":
                 token, name, bitmap = value
                 if (
@@ -2132,18 +2177,6 @@ def gui(
         )
         assert app.notebook.index(app.notebook.select()) == 3
         if snapshot:
-            # Documentation screenshots contain UI only, with generic paths and no boot assets.
-            placeholders = []
-
-            def visit(widget):
-                if widget.winfo_class() == "TEntry":
-                    value = locale.RawStringVar(value=t("Nicht eingerichtet"))
-                    placeholders.append(value)
-                    widget.configure(textvariable=value)
-                for child in widget.winfo_children():
-                    visit(child)
-
-            visit(root)
             root.update()
             from PIL import ImageGrab
             import ctypes

@@ -50,6 +50,7 @@ def save_preferences(**changes):
 
 # German source phrases are kept as stable internal keys for existing projects.
 TRANSLATIONS = {
+    "Keine Datei ausgewählt": "No file selected",
     "Nicht eingerichtet": "Not configured",
     "Einrichtung": "Setup",
     "Originalanimation und XexTool werden separat benötigt.\nXenia ist optional für die Shader-Vorschau.": "Provide your original animation and XexTool separately.\nXenia is optional for native shader preview.",
