@@ -4,6 +4,10 @@ Customize the colors of the modern Xbox 360 boot animation, preview your theme o
 
 **[Download for Windows](https://github.com/Devine3DS/NativeBootStudio/releases/latest)** · **[Deutsche Anleitung](README.de.md)**
 
+![Native Boot Studio editor with the Blue on Black theme in the native shader preview](docs/assets/editor-shader-blue.png)
+
+*Blue on Black in Native Boot Studio 4.2.2, using the native shader preview through Xenia.*
+
 This tutorial takes you from the first launch to installing your animation. The supported source is the **modern boot animation from dashboard/kernel 17559**. The classic animation is not supported.
 
 ## 1. Download and set up
@@ -27,6 +31,15 @@ The Windows download contains Native Boot Studio and its instructions. The origi
 
 Use an untouched original as the input; do not select a previously exported theme as the source.
 
+<details>
+<summary>Screenshot: first launch and file setup</summary>
+
+![Files tab before selecting the original animation, XexTool, and optional Xenia](docs/assets/file-setup.png)
+
+The Files tab shows filenames only once selected, keeping Windows usernames and folder paths out of the interface.
+
+</details>
+
 ## 2. Create your color theme
 
 1. Open **Palette**, choose a preset group, then select one of the 40 presets. For a blue animation on a black background, choose **Dark → Blue on Black**.
@@ -35,7 +48,20 @@ Use an untouched original as the input; do not select a previously exported them
 4. Use the supported controls in **Details** and **Animation** to adjust layout and animation speed.
 5. Replay the animation and compare it with the original. Undo/redo lets you step back through your edits.
 
+![Built-in preset gallery with different color themes](docs/assets/preset-gallery.png)
+
+*Browse 40 built-in palettes. Gallery thumbnails use the model preview with approximate lighting.*
+
 With Xenia configured, click **Start shader preview** to view the original renderer, shaders, textures, and camera movement with your settings. Without Xenia, you can use the model preview, which approximates the animation. The shader preview may restart briefly after edits. Check the finished result on your console: emulator output can differ from hardware, and changing animation speed does not retime the boot audio.
+
+<details>
+<summary>Screenshot: Gold on Black in the native shader preview</summary>
+
+![Gold on Black theme with individual color controls and native shader preview](docs/assets/editor-shader-gold.png)
+
+The same animation with a coordinated gold palette and black background, rendered through Xenia.
+
+</details>
 
 The editor changes the existing animation. Custom replacement text and entirely new animation sequences are not available.
 
@@ -46,6 +72,8 @@ Open **My presets** and save the current colors with a name. You can apply, rena
 Presets contain colors; size, position, and speed stay as they are. Save a `.nbstudio.json` project to keep the wider editor settings. Back up the `UserPresets` folder beside the EXE before updating the application.
 
 ![Custom preset library](docs/assets/preset-library.png)
+
+*Example saved palettes in My presets, with controls for applying, renaming, replacing, and sharing them.*
 
 ## 3. Export bootanim.xex
 
