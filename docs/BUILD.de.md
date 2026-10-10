@@ -20,8 +20,8 @@ Pillow ist die Programmbibliothek. PyInstaller erstellt die EXE, Capstone unters
 
 Der Packager erzeugt unter `dist/`:
 
-- `NativeBootStudio-4.2.1-Windows-x64.zip`: EXE, deutsche/englische Benutzer- und Installationsanleitungen, CRC-32-Hilfe und Lizenzhinweise.
-- `NativeBootStudio-4.2.1-source.zip`: bereinigter Quellcode, Tests, Dokumentation, Build-Skript und GitHub-Workflow.
+- `NativeBootStudio-4.2.2-Windows-x64.zip`: EXE, deutsche/englische Benutzer- und Installationsanleitungen, CRC-32-Hilfe und Lizenzhinweise.
+- `NativeBootStudio-4.2.2-source.zip`: bereinigter Quellcode, Tests, Dokumentation, Build-Skript und GitHub-Workflow.
 - `SHA256SUMS.txt`: SHA-256-Prüfsummen beider Archive.
 
 Temporäre Build-Dateien liegen unter `.build/`. Beide Ordner werden von Git ignoriert. Der Source-Packager verwendet festgelegte Datei-/Ordnerlisten. Binärdateien, Xbox-Dateien, persönliche Einstellungen, Projekte, Presets und private Testdateien werden nicht mitgenommen. Prüfe die Archivinhalte vor der Veröffentlichung.

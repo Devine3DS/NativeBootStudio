@@ -4,7 +4,7 @@ The prepared packages do not upload anything to GitHub automatically. This guide
 
 ## 1. Create the repository
 
-Extract `NativeBootStudio-4.2.1-source.zip` into a new folder. Create a public GitHub repository, for example `NativeBootStudio`. For the Git command route below, create an empty repository without an automatically generated README/license.
+Extract `NativeBootStudio-4.2.2-source.zip` into a new folder. Create a public GitHub repository, for example `NativeBootStudio`. For the Git command route below, create an empty repository without an automatically generated README/license.
 
 Upload the **contents** of the extracted source folder, preserving the subfolders. `README.md` must be at the repository root, alongside `README.de.md`, `LICENSE`, `src/`, `tests/`, `docs/`, `scripts/`, `licenses/`, and `.github/`. Include `.gitignore` and `.gitattributes`; they may be hidden in Explorer. Do not simply upload the source ZIP as the repository's only file.
 
@@ -25,14 +25,14 @@ Replace `YOUR-REPOSITORY-URL` with your repository's HTTPS URL. Authenticate usi
 
 The README displays the English overview with a German link. The MIT license applies to the project's own source; dependency notices remain in `licenses/`.
 
-## 2. Create release v4.2.1
+## 2. Create release v4.2.2
 
 On GitHub, open **Releases → Draft a new release**:
 
-1. Create tag `v4.2.1` targeting the tested commit on `main`.
-2. Use the title **Native Boot Studio 4.2.1**.
-3. Copy the ready-to-use [English notes](releases/v4.2.1.en.md). Append the [German notes](releases/v4.2.1.de.md) if you want both languages on the release page.
-4. Attach `NativeBootStudio-4.2.1-Windows-x64.zip` and `SHA256SUMS.txt`. The clean source ZIP is optional; GitHub also offers source archives from the tag.
+1. Create tag `v4.2.2` targeting the tested commit on `main`.
+2. Use the title **Native Boot Studio 4.2.2**.
+3. Copy the ready-to-use [English notes](releases/v4.2.2.en.md). Append the [German notes](releases/v4.2.2.de.md) if you want both languages on the release page.
+4. Attach `NativeBootStudio-4.2.2-Windows-x64.zip` and `SHA256SUMS.txt`. The clean source ZIP is optional; GitHub also offers source archives from the tag.
 5. Save as a draft, review the archive contents and notes, then publish.
 
 Use only the newly generated public archives. The Windows ZIP contains the program, English/German user and installation guides, a CRC-32 helper, and runtime license notices. Users provide their own original boot animation, XexTool, optional Xenia, and the remap if using the HDD route.

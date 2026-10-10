@@ -14,6 +14,9 @@ Klicke auf **Eingabe erneut prüfen**. Der Export bleibt gesperrt, bis die Ausga
 
 Alternativ sind die Standardpfade `originals/modern/bootanim.xex`, `tools/xextool.exe` und `tools/preview/xenia.exe` neben der EXE möglich. Diese optionalen Ordner werden im öffentlichen Release nicht mitgeliefert. Gib eigene Dateien nur weiter, wenn ihre Bedingungen das ausdrücklich erlauben.
 
+
+Der Reiter Dateien zeigt nur Dateinamen an. Vollständige Pfade werden lokal zum Laden der Dateien gespeichert und in diesen Feldern nicht angezeigt. Fehlt eine Datei, wähle sie mit der passenden Auswählen-Schaltfläche erneut aus.
+
 ## Farbdesign erstellen
 
 Wähle unter **Palette** eine Presetgruppe und ein Preset. Die Presets stimmen Hintergrund, Wirbel, Kugel-X, Leuchten, Highlights, Szenentönung und Schrift aufeinander ab. Die Hauptfarbe färbt zusammengehörige Elemente und erhält dabei deren Schattierung. Mit den einzelnen Farbreglern kannst du das Design weiter anpassen.

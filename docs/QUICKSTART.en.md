@@ -14,6 +14,9 @@ Click **Check files again**. Export stays disabled until the source is verified.
 
 Alternatively, the default locations are `originals/modern/bootanim.xex`, `tools/xextool.exe`, and `tools/preview/xenia.exe` beside the EXE. These folders are optional and are not included in the public release. Keep any files you supply private unless their terms explicitly allow redistribution.
 
+
+The Files tab displays filenames only. Full paths are kept locally for loading your files and are not shown in these fields. When a file is missing, select it again with the corresponding Choose button.
+
 ## Create a theme
 
 Select a preset group and preset under **Palette**. Presets coordinate the background, swirl, sphere X, glow, highlights, scene tint, and lettering. The main color control recolors the related elements while retaining their shading. Individual color controls let you refine the theme.

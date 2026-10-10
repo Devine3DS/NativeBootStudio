@@ -20,8 +20,8 @@ Pillow is the application dependency. PyInstaller builds the executable, Capston
 
 The packager writes these files to `dist/`:
 
-- `NativeBootStudio-4.2.1-Windows-x64.zip`: EXE, English/German user and installation guides, CRC-32 helper, and license notices.
-- `NativeBootStudio-4.2.1-source.zip`: clean source, tests, documentation, build script, and GitHub workflow.
+- `NativeBootStudio-4.2.2-Windows-x64.zip`: EXE, English/German user and installation guides, CRC-32 helper, and license notices.
+- `NativeBootStudio-4.2.2-source.zip`: clean source, tests, documentation, build script, and GitHub workflow.
 - `SHA256SUMS.txt`: SHA-256 checksums of both archives.
 
 Temporary build output lives in `.build/`. Both folders are ignored by Git. Source packaging uses explicit file/folder allowlists; binaries, Xbox files, personal settings, projects, presets, and private fixtures are excluded. Inspect archive contents before publishing.

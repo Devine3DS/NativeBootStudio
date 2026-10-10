@@ -4,7 +4,7 @@ Die vorbereiteten Pakete laden nichts automatisch auf GitHub hoch. Diese Anleitu
 
 ## 1. Repository anlegen
 
-Entpacke `NativeBootStudio-4.2.1-source.zip` in einen neuen Ordner. Erstelle auf GitHub ein öffentliches Repository, zum Beispiel `NativeBootStudio`. Für den unten gezeigten Git-Ablauf legst du es leer an, ohne automatisch erzeugte README/Lizenz.
+Entpacke `NativeBootStudio-4.2.2-source.zip` in einen neuen Ordner. Erstelle auf GitHub ein öffentliches Repository, zum Beispiel `NativeBootStudio`. Für den unten gezeigten Git-Ablauf legst du es leer an, ohne automatisch erzeugte README/Lizenz.
 
 Lade den **Inhalt** des entpackten Source-Ordners mit erhaltenen Unterordnern hoch. `README.md` gehört direkt ins Repository-Hauptverzeichnis, neben `README.de.md`, `LICENSE`, `src/`, `tests/`, `docs/`, `scripts/`, `licenses/` und `.github/`. Nimm `.gitignore` und `.gitattributes` mit; im Explorer sind sie eventuell ausgeblendet. Lade nicht nur die Source-ZIP als einzelne Repository-Datei hoch.
 
@@ -25,14 +25,14 @@ Ersetze `YOUR-REPOSITORY-URL` durch die HTTPS-Adresse deines Repositorys. Nutze 
 
 Die README zeigt die englische Übersicht mit Link zur deutschen Fassung. Die MIT-Lizenz gilt für den eigenen Projektcode; Hinweise zu Abhängigkeiten bleiben unter `licenses/`.
 
-## 2. Release v4.2.1 erstellen
+## 2. Release v4.2.2 erstellen
 
 Öffne auf GitHub **Releases → Draft a new release**:
 
-1. Erstelle den Tag `v4.2.1` auf dem geprüften Commit von `main`.
-2. Titel: **Native Boot Studio 4.2.1**.
-3. Übernimm die fertigen [englischen Versionshinweise](releases/v4.2.1.en.md). Hänge bei Bedarf die [deutsche Fassung](releases/v4.2.1.de.md) an.
-4. Füge `NativeBootStudio-4.2.1-Windows-x64.zip` und `SHA256SUMS.txt` hinzu. Die saubere Source-ZIP ist optional; GitHub bietet zusätzlich Quellcode-Archive des Tags an.
+1. Erstelle den Tag `v4.2.2` auf dem geprüften Commit von `main`.
+2. Titel: **Native Boot Studio 4.2.2**.
+3. Übernimm die fertigen [englischen Versionshinweise](releases/v4.2.2.en.md). Hänge bei Bedarf die [deutsche Fassung](releases/v4.2.2.de.md) an.
+4. Füge `NativeBootStudio-4.2.2-Windows-x64.zip` und `SHA256SUMS.txt` hinzu. Die saubere Source-ZIP ist optional; GitHub bietet zusätzlich Quellcode-Archive des Tags an.
 5. Speichere zunächst den Entwurf, prüfe Dateien und Beschreibung und veröffentliche danach.
 
 Verwende ausschließlich die neuen öffentlichen Archive. Die Windows-ZIP enthält Programm, deutsche/englische Benutzer- und Installationsanleitungen, eine CRC-32-Hilfe und Laufzeit-Lizenzhinweise. Originalanimation, XexTool, optional Xenia und bei der HDD-Variante den Remap stellt jeder Nutzer selbst bereit.
