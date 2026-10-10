@@ -18,7 +18,7 @@ You need:
 
 The Windows download contains Native Boot Studio and its instructions. The original Xbox file, XexTool, and Xenia must be provided separately.
 
-1. Download **NativeBootStudio-4.2.1-Windows-x64.zip** from [Releases](https://github.com/Devine3DS/NativeBootStudio/releases/latest).
+1. Download **NativeBootStudio-4.2.2-Windows-x64.zip** from [Releases](https://github.com/Devine3DS/NativeBootStudio/releases/latest).
 2. Extract the entire ZIP into a folder where you can save files, then run `NativeBootStudio.exe`.
 3. Choose **English** or **Deutsch** at the top of the window.
 4. Open **Files** and select your original `bootanim.xex` and `xextool.exe`.

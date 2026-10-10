@@ -18,7 +18,7 @@ Du benötigst:
 
 Der Windows-Download enthält Native Boot Studio und die Anleitungen. Die originale Xbox-Datei, XexTool und Xenia werden separat benötigt.
 
-1. Lade **NativeBootStudio-4.2.1-Windows-x64.zip** unter [Releases](https://github.com/Devine3DS/NativeBootStudio/releases/latest) herunter.
+1. Lade **NativeBootStudio-4.2.2-Windows-x64.zip** unter [Releases](https://github.com/Devine3DS/NativeBootStudio/releases/latest) herunter.
 2. Entpacke die gesamte ZIP in einen Ordner, in dem du Dateien speichern kannst, und starte `NativeBootStudio.exe`.
 3. Wähle oben im Fenster **English** oder **Deutsch**.
 4. Öffne **Dateien** und wähle deine originale `bootanim.xex` sowie `xextool.exe` aus.
@@ -31,7 +31,7 @@ Verwende als Eingabe ein unverändertes Original, keine bereits exportierte Farb
 
 1. Öffne **Palette**, wähle eine Presetgruppe und anschließend eines der 40 Presets. Für eine blaue Animation mit schwarzem Hintergrund wählst du **Dunkel → Blau auf Schwarz**.
 2. Klicke auf das große Farbfeld unter der Presetauswahl, um Wirbel, Kugel-X, Leuchten und XBOX-Schrift gemeinsam umzufärben.
-3. Passe darunter die einzelnen Farben an: **Hintergrund · Xbox & Vorschau**, **Ausströmender Wirbel**, **Kugel-X / Texturen**, **Leuchten**, **Helle Effektschicht**, **Szenenfarbe** und **XBOX-Schriftzug**. Weitere Effekt- und Lichtfarben findest du unter **Details**.
+3. Passe darunter die einzelnen Farben an: **Hintergrund**, **Wirbelfarbe**, **X auf der Kugel**, **Leuchteffekt**, **Helle Effekte**, **Grundfarbe der Animation** und **XBOX-Schriftzug**. Weitere Effekt- und Lichtfarben findest du unter **Details**.
 4. Unter **Details** und **Animation** kannst du die unterstützten Einstellungen für Anordnung und Animationsgeschwindigkeit verändern.
 5. Spiele die Animation ab und vergleiche sie mit dem Original. Mit Rückgängig/Wiederholen kannst du deine Änderungen durchgehen.
 

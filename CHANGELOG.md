@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.2.2 — Private file paths
+
+- File setup shows filenames only, without Windows usernames or folder paths.
+- Unconfigured or missing files show a translated "No file selected" label.
+- Original file locations remain available internally for preview, export, and saved local settings.
+- English/German landing pages now contain the complete user tutorial, including HDD and NAND installation.
+
 ## 4.2.1 — Public packaging
 
 - Clean source repository and minimal Windows release, without Xbox files, XexTool, or Xenia.
