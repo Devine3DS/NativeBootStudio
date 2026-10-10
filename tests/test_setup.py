@@ -141,7 +141,7 @@ class SetupTests(unittest.TestCase):
                     app.language.set("Deutsch")
                     app.change_language()
                     self.assertEqual(app.source_display.get(), "Open.xex")
-                    self.assertEqual(app.document()["source"], str(replacement))
+                    self.assertEqual(app.document()["source"], str(replacement.resolve()))
                     error = app.display_error(
                         "Cannot read "
                         + str(replacement)
