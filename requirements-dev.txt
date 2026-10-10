@@ -1,0 +1,5 @@
+-r requirements.txt
+PyInstaller==6.20.0
+packaging==26.2
+capstone==5.0.9
+black==26.10.1
